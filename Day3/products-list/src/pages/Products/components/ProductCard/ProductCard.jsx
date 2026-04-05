@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { addToCart } from "../../../../Redux/Reducer/CounterSlice"
 
 function ProductCard({ product }) {
+
+  const dispatch = useDispatch()
+  const handleAddToCart = () => {
+    dispatch(addToCart(product))
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -13,7 +20,7 @@ function ProductCard({ product }) {
           <Link to={`/products/${product.id}`} className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             View Details
           </Link>
-          <button className="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          <button onClick={handleAddToCart} className="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
             Add to Cart
           </button>
         </div>

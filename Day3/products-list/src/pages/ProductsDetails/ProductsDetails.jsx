@@ -3,9 +3,16 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../Redux/Reducer/CounterSlice'
 function ProductsDetails() {
   const { id } = useParams()
   const [product, setProduct] = useState(null)
+
+  const dispatch = useDispatch()
+  const handleAddToCart = () => {
+    dispatch(addToCart(product))
+  }
   const URL = `https://dummyjson.com/products/${id}`
   useEffect(() => {
     const fetchProduct = async () => {
@@ -35,7 +42,7 @@ function ProductsDetails() {
                 <span className='text-gray-600'>{product.rating}</span>
               </div>
               <div className='flex space-x-4'>
-                <button className='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 flex items-center space-x-2'>
+                <button className='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 flex items-center space-x-2' onClick={handleAddToCart}>
                   <FontAwesomeIcon icon={faCartShopping} />
                   <span>Add to Cart</span>
                 </button>
